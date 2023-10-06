@@ -20,8 +20,10 @@ describe("a-solana-demo", () => {
     const connection = anchor.AnchorProvider.env().connection;
     // Request sol airdrop (for human to be able to do transactions)
     await requestAirdrop(connection, human.publicKey, LAMPORTS_PER_SOL)
-    // ----------------------------------------------------------
 
+    // ----------------------------------------------------------
+    // Tag
+    //
     const tagName = "hello";
     let [tag] = anchor.web3.PublicKey.findProgramAddressSync(
         [
@@ -31,7 +33,6 @@ describe("a-solana-demo", () => {
         program.programId
     );
 
-    // Add your test here.
     const tx = await program.methods.createTag(
         tagName,
         "world",
@@ -69,6 +70,60 @@ describe("a-solana-demo", () => {
     // Fetch the state struct from the network.
     const accountState = await program.account.tag.fetch(tag);
     console.log("account state: ", accountState);
+
+    // ----------------------------------------------------------
+    // Article
+    //
+    const articleId = new anchor.BN(1);
+    let [article] = anchor.web3.PublicKey.findProgramAddressSync(
+        [
+            Buffer.from("Article"),
+            articleId.toBuffer(),
+        ],
+        program.programId
+    );
+
+    const tx_3 = await program.methods.createArticle(
+        articleId,
+        "hello",
+        "world",
+        human.publicKey,
+    ).accounts(
+        {
+           article,
+           authority: human.publicKey, //authority,
+           systemProgram: anchor.web3.SystemProgram.programId,
+        }
+    )
+    .signers(
+        [human]
+    )
+    .rpc();
+    console.log("Your transaction signature", tx_3);
+
+    //
+    // update
+    const tx_4 = await program.methods.updateArticle(
+        "hello",
+        "world!",
+        human.publicKey,
+    ).accounts(
+        {
+           article,
+           authority: human.publicKey, //authority,
+           systemProgram: anchor.web3.SystemProgram.programId,
+        }
+    )
+    .signers(
+        [human]
+    )
+    .rpc();
+    console.log("Your transaction signature", tx_4);
+    //
+
+    // Fetch the state struct from the network.
+    const accountState_2 = await program.account.article.fetch(article);
+    console.log("account state: ", accountState_2);
 
   });
 });
