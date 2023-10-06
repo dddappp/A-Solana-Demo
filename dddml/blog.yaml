@@ -1,0 +1,221 @@
+aggregates:
+
+  Tag:
+    metadata:
+      Preprocessors: [ "MOVE_CRUD_IT" ]
+      CRUD_IT_CREATE_METHOD_NAME: "CreateTag"
+      CRUD_IT_UPDATE_METHOD_NAME: "UpdateTag"
+      CRUD_IT_NO_DELETE: true
+    id:
+      name: Name
+      type: String
+      generator:
+        class: assigned
+        #tableName: TagNameTable
+    properties:
+      Description:
+        type: String
+        length: 100
+#    methods:
+#      CreateTag:
+#        event:
+#          isObjectFrozen: false
+
+
+#  Article:
+#    metadata:
+#      Preprocessors: [ "MOVE_CRUD_IT" ]
+#    id:
+#      name: Id
+#      type: UID
+#
+#    properties:
+#      Title:
+#        type: String
+#        length: 200
+#      Body:
+#        type: String
+#        length: 2000
+#      Owner:
+#        type: address
+#      Tags:
+#        itemType: String
+#        defaultLogic:
+#          Move:
+#            "std::vector::empty()"
+#      TagsV2:
+#        itemType: ID
+#        defaultLogic:
+#          Move:
+#            "std::vector::empty()"
+#      Comments:
+#        itemType: Comment
+#
+#    entities:
+#      Comment:
+#        metadata:
+#          Preprocessors: [ "MOVE_CRUD_IT" ]
+#        id:
+#          name: CommentSeqId
+#          type: u64
+#          generator:
+#            class: sequence
+#            structName: CommentSeqIdGenerator
+#        properties:
+#          Commenter:
+#            type: String
+#            length: 100
+#          Body:
+#            type: String
+#            length: 500
+#          Owner:
+#            type: address
+#    methods:
+#      Create:
+#        metadata:
+#          CRUD_IT_EXPAND_PARAMETERS: true
+#        parameters:
+#          Blog:
+#            referenceType: Blog
+#            isMutableReference: true
+#            eventPropertyName: BlogId
+#      Update:
+#        verificationLogic:
+#          Move:
+#            "assert!(sui::tx_context::sender(ctx) == article::owner(article), 111);"
+#      Delete:
+#        metadata:
+#          CRUD_IT_EXPAND_PARAMETERS: true
+#        parameters:
+#          Blog:
+#            referenceType: Blog
+#            isMutableReference: true
+#            eventPropertyName: BlogId
+#
+#      UpdateComment:
+#        verificationLogic:
+#          Move:
+#            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
+#      RemoveComment:
+#        verificationLogic:
+#          Move:
+#            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
+#      AddComment:
+#        event:
+#          name: CommentAdded
+#          properties:
+#            Owner:
+#              type: address
+#        parameters:
+#          #CommentSeqId:
+#          #  type: u64
+#          Commenter:
+#            type: String
+#            length: 100
+#          Body:
+#            type: String
+#            length: 500
+#
+#      UpdateTags:
+#        event:
+#          name: ArticleTagsUpdated
+#        parameters:
+#          Tags:
+#            itemReferenceType: Tag
+#            size:
+#              min: 1
+#              max: 3
+##
+##      UpdateTagsV2:
+##        event:
+##          name: ArticleTagsV2Updated
+##        parameters:
+##          Tags:
+##            itemReferenceType: TagV2
+##            size:
+##              min: 1
+##              max: 3
+
+#  TagV2:
+#    metadata:
+#      Preprocessors: [ "MOVE_CRUD_IT" ]
+#    immutable: true
+#    id:
+#      name: Id
+#      type: UID
+#    properties:
+#      Name:
+#        type: String
+#        length: 100
+#    methods:
+#      Create:
+#        event:
+#          isObjectFrozen: true
+#
+
+#
+#singletonObjects:
+#  Blog:
+#    friends: [ "Article.Create", "Article.Delete" ]
+#    metadata:
+#      Preprocessors: [ "MOVE_CRUD_IT" ]
+#      CRUD_IT_NO_DELETE: true
+#    properties:
+#      Name:
+#        type: String
+#        length: 200
+#        defaultLogic:
+#          Move:
+#            'std::string::utf8(b"Unnamed Blog")'
+#      Articles:
+#        itemType: ID #ObjectID
+#        isList: true
+#      Vault:
+#        type: "Balance<SUI>"
+#
+#    methods:
+#      "__Init__":
+#        event:
+#          isObjectShared: true # Share the object after initialization.
+#
+#      Donate:
+#        shouldCallByReference: true
+#        parameters:
+#          Amount:
+#            type: Balance<SUI>
+#        event:
+#          name: DonationReceived
+#          properties:
+#            Amount:
+#              type: u64
+#      Withdraw:
+#        shouldCallByReference: true
+#        parameters:
+#          Amount:
+#            type: u64
+#        result:
+#          type: Balance<SUI>
+#        event:
+#          name: VaultWithdrawn
+#
+#      AddArticle:
+#        isInternal: true
+#        #metadata:
+#        #  NoSigner: true
+#        shouldCallByReference: true
+#        event:
+#          name: ArticleAddedToBlog
+#        parameters:
+#          ArticleId:
+#            type: ID #ObjectID
+#
+#      RemoveArticle:
+#        isInternal: true
+#        #metadata:
+#        #  NoSigner: true
+#        shouldCallByReference: true
+#        event:
+#          name: ArticleRemovedFromBlog
+#        parameters:
+#          ArticleId:
+#            type: ID #ObjectID
