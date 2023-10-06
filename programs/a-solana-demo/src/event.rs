@@ -13,3 +13,20 @@ pub struct TagUpdated {
     pub description: String,
 }
 
+#[event]
+pub struct ArticleCreated {
+    pub article_id: u128,
+    pub title: String,
+    pub body: String,
+    pub owner: Pubkey,
+}
+
+#[event]
+pub struct ArticleUpdated {
+    pub article_id: u128,
+    pub version: u64,
+    pub title: String,
+    pub body: String,
+    pub owner: Pubkey,
+}
+

@@ -21,36 +21,34 @@ aggregates:
 #        event:
 #          isObjectFrozen: false
 
-
-#  Article:
-#    metadata:
-#      Preprocessors: [ "MOVE_CRUD_IT" ]
-#    id:
-#      name: Id
-#      type: UID
-#
-#    properties:
-#      Title:
-#        type: String
-#        length: 200
-#      Body:
-#        type: String
-#        length: 2000
-#      Owner:
-#        type: address
+  Article:
+    metadata:
+      # The following two lines indicate that the tool should automatically generate the Create and Update methods,
+      # but not the Delete method.
+      Preprocessors: [ "MOVE_CRUD_IT" ]
+      CRUD_IT_CREATE_METHOD_NAME: "CreateArticle"
+      CRUD_IT_UPDATE_METHOD_NAME: "UpdateArticle"
+      CRUD_IT_NO_DELETE: true
+    id:
+      name: ArticleId
+      type: u128
+    properties:
+      Title:
+        type: String
+        length: 200
+      Body:
+        type: String
+        length: 2000
+      Owner:
+        type: address
 #      Tags:
 #        itemType: String
 #        defaultLogic:
 #          Move:
 #            "std::vector::empty()"
-#      TagsV2:
-#        itemType: ID
-#        defaultLogic:
-#          Move:
-#            "std::vector::empty()"
 #      Comments:
 #        itemType: Comment
-#
+
 #    entities:
 #      Comment:
 #        metadata:
