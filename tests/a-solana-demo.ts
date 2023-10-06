@@ -9,6 +9,7 @@ describe("a-solana-demo", () => {
 
   const program = anchor.workspace.ASolanaDemo as Program<ASolanaDemo>;
 
+  let provider = anchor.AnchorProvider.env();
   const authority = provider.wallet.publicKey;
 
   it("Is initialized!", async () => {
@@ -50,7 +51,6 @@ describe("a-solana-demo", () => {
     //
     // update
     const tx_2 = await program.methods.updateTag(
-        tagName,
         "world!",
     ).accounts(
         {
