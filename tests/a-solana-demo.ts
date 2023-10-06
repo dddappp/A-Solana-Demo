@@ -74,11 +74,11 @@ describe("a-solana-demo", () => {
     // ----------------------------------------------------------
     // Article
     //
-    const articleId = new anchor.BN(1);
+    const articleId = new anchor.BN(1, 128);
     let [article] = anchor.web3.PublicKey.findProgramAddressSync(
         [
             Buffer.from("Article"),
-            articleId.toBuffer(),
+            articleId.toBuffer("le", 16),
         ],
         program.programId
     );
