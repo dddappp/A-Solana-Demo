@@ -14,6 +14,16 @@ pub struct TagUpdated {
 }
 
 #[event]
+pub struct CommentAdded {
+    pub article_id: u128,
+    pub version: u64,
+    pub comment_seq_id: u64,
+    pub commenter: String,
+    pub body: String,
+    pub owner: Pubkey,
+}
+
+#[event]
 pub struct ArticleCreated {
     pub article_id: u128,
     pub title: String,

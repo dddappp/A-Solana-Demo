@@ -41,34 +41,63 @@ aggregates:
         length: 2000
       Owner:
         type: address
+      Comments:
+        itemType: Comment
 #      Tags:
 #        itemType: String
 #        defaultLogic:
 #          Move:
 #            "std::vector::empty()"
-#      Comments:
-#        itemType: Comment
 
-#    entities:
-#      Comment:
+    entities:
+      Comment:
 #        metadata:
 #          Preprocessors: [ "MOVE_CRUD_IT" ]
-#        id:
-#          name: CommentSeqId
-#          type: u64
+        id:
+          name: CommentSeqId
+          type: u64
 #          generator:
 #            class: sequence
 #            structName: CommentSeqIdGenerator
-#        properties:
-#          Commenter:
-#            type: String
-#            length: 100
-#          Body:
-#            type: String
-#            length: 500
-#          Owner:
-#            type: address
-#    methods:
+        properties:
+          Commenter:
+            type: String
+            length: 100
+          Body:
+            type: String
+            length: 500
+          Owner:
+            type: address
+
+    methods:
+      AddComment:
+        parameters:
+          CommentSeqId:
+            type: u64
+          Commenter:
+            type: String
+            length: 100
+          Body:
+            type: String
+            length: 500
+          Owner:
+            type: address
+        event:
+          name: CommentAdded
+#          properties:
+#            Owner:
+#              type: address
+
+#      UpdateComment:
+#        verificationLogic:
+#          Move:
+#            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
+#      RemoveComment:
+#        verificationLogic:
+#          Move:
+#            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
+
+
 #      Create:
 #        metadata:
 #          CRUD_IT_EXPAND_PARAMETERS: true
@@ -90,29 +119,6 @@ aggregates:
 #            isMutableReference: true
 #            eventPropertyName: BlogId
 #
-#      UpdateComment:
-#        verificationLogic:
-#          Move:
-#            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
-#      RemoveComment:
-#        verificationLogic:
-#          Move:
-#            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
-#      AddComment:
-#        event:
-#          name: CommentAdded
-#          properties:
-#            Owner:
-#              type: address
-#        parameters:
-#          #CommentSeqId:
-#          #  type: u64
-#          Commenter:
-#            type: String
-#            length: 100
-#          Body:
-#            type: String
-#            length: 500
 #
 #      UpdateTags:
 #        event:
