@@ -125,6 +125,40 @@ describe("a-solana-demo", () => {
     const accountState_2 = await program.account.article.fetch(article);
     console.log("account state: ", accountState_2);
 
+    // ----------------------------------------------------------
+    // Comment
+    const commentSeqId = new anchor.BN(1, 64);
+    let [comment] = anchor.web3.PublicKey.findProgramAddressSync(
+        [
+            Buffer.from("Comment"),
+            articleId.toBuffer("le", 16),
+            commentSeqId.toBuffer("le", 8),
+        ],
+        program.programId
+    );
+    const tx_5 = await program.methods.addComment(
+        commentSeqId,
+        "foo",
+        "bar",
+        human.publicKey,
+    ).accounts(
+        {
+           article,
+           comment,
+           authority: human.publicKey, //authority,
+           systemProgram: anchor.web3.SystemProgram.programId,
+        }
+    )
+    .signers(
+        [human]
+    )
+    .rpc();
+    console.log("Your transaction signature", tx_5);
+
+    // Fetch the state struct from the network.
+    const accountState_3 = await program.account.comment.fetch(comment);
+    console.log("account state: ", accountState_3);
+
   });
 });
 

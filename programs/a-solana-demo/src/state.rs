@@ -22,3 +22,15 @@ pub struct Article {
     pub owner: Pubkey,
 }
 
+#[account]
+#[derive(InitSpace)]
+pub struct Comment {
+    pub article_id: u128,
+    pub comment_seq_id: u64,
+    #[max_len(100)]
+    pub commenter: String,
+    #[max_len(500)]
+    pub body: String,
+    pub owner: Pubkey,
+}
+

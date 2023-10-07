@@ -41,6 +41,7 @@ pub struct UpdateTag<'info> {
 }
 
 #[derive(Accounts)]
+#[instruction(comment_seq_id: u64)]
 pub struct AddComment<'info> {
     #[account(
         mut,
@@ -51,6 +52,19 @@ pub struct AddComment<'info> {
         bump
     )]
     pub article: Account<'info, Article>,
+
+    #[account(
+        init,
+        payer = authority,
+        space = 8 + Comment::INIT_SPACE,
+        seeds = [
+            b"Comment",
+            article.article_id.to_le_bytes().as_ref(),
+            comment_seq_id.to_le_bytes().as_ref(),
+        ],
+        bump
+    )]
+    pub comment: Account<'info, Comment>,
 
     #[account(mut)]
     pub authority: Signer<'info>,

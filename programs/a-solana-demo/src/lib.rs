@@ -86,12 +86,16 @@ pub mod a_solana_demo {
         assert_eq!(article_id, comment_added.article_id, "ArticleId of event does not match");
         assert_eq!(old_version, comment_added.version, "Version of event does not match");
         let article = &mut ctx.accounts.article;
+        let comment = &mut ctx.accounts.comment;
         article_add_comment_logic::mutate(
             &comment_added,
             article,
+            comment,
         );
         assert_eq!(article_id, article.article_id, "ArticleId of state does not match");
         article.version = old_version + 1;
+        comment.article_id = article_id.clone();
+        comment.comment_seq_id = comment_seq_id.clone();
         emit!(comment_added);
 
         Ok(())
