@@ -10,6 +10,8 @@ mod tag_update_tag_logic;
 mod article_add_comment_logic;
 mod article_create_article_logic;
 mod article_update_article_logic;
+mod blog_create_blog_logic;
+mod blog_update_blog_logic;
 
 declare_id!("9TFvj5xg3X7URQGE8PYVEtb2HZ9mrGXRiWqmsdRX6xS3");
 
@@ -153,6 +155,54 @@ pub mod a_solana_demo {
         assert_eq!(article_id, article.article_id, "ArticleId of state does not match");
         article.version = old_version + 1;
         emit!(article_updated);
+
+        Ok(())
+    }
+
+    pub fn create_blog(
+        ctx: Context<CreateBlog>,
+        name: String,
+    ) -> Result<()> {
+        let owner = *ctx.accounts.authority.key;
+        let blog_created = blog_create_blog_logic::verify(
+            owner.clone(),
+            name,
+            &ctx,
+        );
+        assert_eq!(owner, blog_created.owner, "Owner of event does not match");
+        let mut blog = blog_create_blog_logic::mutate(
+            &blog_created,
+        );
+        assert_eq!(owner, blog.owner, "Owner of state does not match");
+        blog.version = 0;
+        *ctx.accounts.blog = blog;
+        emit!(blog_created);
+
+        Ok(())
+    }
+
+    pub fn update_blog(
+        ctx: Context<UpdateBlog>,
+        name: String,
+    ) -> Result<()> {
+        let blog = &ctx.accounts.blog;
+        let owner = blog.owner.clone();
+        let old_version = blog.version;
+        let blog_updated = blog_update_blog_logic::verify(
+            name,
+            blog,
+            &ctx,
+        );
+        assert_eq!(owner, blog_updated.owner, "Owner of event does not match");
+        assert_eq!(old_version, blog_updated.version, "Version of event does not match");
+        let blog = &mut ctx.accounts.blog;
+        blog_update_blog_logic::mutate(
+            &blog_updated,
+            blog,
+        );
+        assert_eq!(owner, blog.owner, "Owner of state does not match");
+        blog.version = old_version + 1;
+        emit!(blog_updated);
 
         Ok(())
     }

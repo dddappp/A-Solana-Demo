@@ -40,3 +40,16 @@ pub struct ArticleUpdated {
     pub owner: Pubkey,
 }
 
+#[event]
+pub struct BlogCreated {
+    pub owner: Pubkey,
+    pub name: String,
+}
+
+#[event]
+pub struct BlogUpdated {
+    pub owner: Pubkey,
+    pub version: u64,
+    pub name: String,
+}
+

@@ -34,3 +34,12 @@ pub struct Comment {
     pub owner: Pubkey,
 }
 
+#[account]
+#[derive(InitSpace)]
+pub struct Blog {
+    pub owner: Pubkey,
+    pub version: u64,
+    #[max_len(200)]
+    pub name: String,
+}
+

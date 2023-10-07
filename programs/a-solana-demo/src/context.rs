@@ -111,3 +111,41 @@ pub struct UpdateArticle<'info> {
     pub system_program: Program<'info, System>,
 }
 
+#[derive(Accounts)]
+pub struct CreateBlog<'info> {
+    #[account(
+        init,
+        payer = authority,
+        space = 8 + Blog::INIT_SPACE,
+        seeds = [
+            b"Blog",
+            authority.key().as_ref(),
+        ],
+        bump
+    )]
+    pub blog: Account<'info, Blog>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct UpdateBlog<'info> {
+    #[account(
+        mut,
+        seeds = [
+            b"Blog",
+            blog.owner.as_ref(),
+        ],
+        bump
+    )]
+    pub blog: Account<'info, Blog>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+
+    pub system_program: Program<'info, System>,
+}
+

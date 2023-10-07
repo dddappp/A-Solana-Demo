@@ -82,6 +82,11 @@ aggregates:
             length: 500
           Owner:
             type: address
+        references:
+          Comment:
+            type: Comment
+            parameters: ["_", "CommentSeqId"]
+            operation: "Initialize" # Initialize or Mutate
         event:
           name: CommentAdded
 #          properties:
@@ -159,15 +164,23 @@ aggregates:
 
 #
 #singletonObjects:
-#  Blog:
-#    friends: [ "Article.Create", "Article.Delete" ]
-#    metadata:
-#      Preprocessors: [ "MOVE_CRUD_IT" ]
-#      CRUD_IT_NO_DELETE: true
-#    properties:
-#      Name:
-#        type: String
-#        length: 200
+#
+  Blog:
+    #friends: [ "Article.Create", "Article.Delete" ]
+    metadata:
+      Preprocessors: [ "MOVE_CRUD_IT" ]
+      CRUD_IT_CREATE_METHOD_NAME: "CreateBlog"
+      CRUD_IT_UPDATE_METHOD_NAME: "UpdateBlog"
+      CRUD_IT_NO_DELETE: true
+    id:
+      name: Owner
+      type: address
+      generator:
+        class: signer
+    properties:
+      Name:
+        type: String
+        length: 200
 #        defaultLogic:
 #          Move:
 #            'std::string::utf8(b"Unnamed Blog")'
