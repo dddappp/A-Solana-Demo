@@ -41,6 +41,45 @@ pub struct UpdateTag<'info> {
 }
 
 #[derive(Accounts)]
+#[instruction(article_id: u128)]
+pub struct CreateArticle<'info> {
+    #[account(
+        init,
+        payer = authority,
+        space = 8 + Article::INIT_SPACE,
+        seeds = [
+            b"Article",
+            article_id.to_le_bytes().as_ref(),
+        ],
+        bump
+    )]
+    pub article: Account<'info, Article>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct UpdateArticle<'info> {
+    #[account(
+        mut,
+        seeds = [
+            b"Article",
+            article.article_id.to_le_bytes().as_ref(),
+        ],
+        bump
+    )]
+    pub article: Account<'info, Article>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
 #[instruction(comment_seq_id: u64)]
 pub struct AddComment<'info> {
     #[account(
@@ -94,45 +133,6 @@ pub struct UpdateComment<'info> {
         bump
     )]
     pub comment: Account<'info, Comment>,
-
-    #[account(mut)]
-    pub authority: Signer<'info>,
-
-    pub system_program: Program<'info, System>,
-}
-
-#[derive(Accounts)]
-#[instruction(article_id: u128)]
-pub struct CreateArticle<'info> {
-    #[account(
-        init,
-        payer = authority,
-        space = 8 + Article::INIT_SPACE,
-        seeds = [
-            b"Article",
-            article_id.to_le_bytes().as_ref(),
-        ],
-        bump
-    )]
-    pub article: Account<'info, Article>,
-
-    #[account(mut)]
-    pub authority: Signer<'info>,
-
-    pub system_program: Program<'info, System>,
-}
-
-#[derive(Accounts)]
-pub struct UpdateArticle<'info> {
-    #[account(
-        mut,
-        seeds = [
-            b"Article",
-            article.article_id.to_le_bytes().as_ref(),
-        ],
-        bump
-    )]
-    pub article: Account<'info, Article>,
 
     #[account(mut)]
     pub authority: Signer<'info>,

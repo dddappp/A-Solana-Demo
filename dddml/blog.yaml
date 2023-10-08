@@ -3,8 +3,8 @@ aggregates:
   Tag:
     metadata:
       Preprocessors: [ "MOVE_CRUD_IT" ]
-      CRUD_IT_CREATE_METHOD_NAME: "CreateTag"
-      CRUD_IT_UPDATE_METHOD_NAME: "UpdateTag"
+#      CRUD_IT_CREATE_METHOD_NAME: "CreateTag"
+#      CRUD_IT_UPDATE_METHOD_NAME: "UpdateTag"
       CRUD_IT_NO_DELETE: true
     id:
       name: Name
@@ -26,8 +26,8 @@ aggregates:
       # The following two lines indicate that the tool should automatically generate the Create and Update methods,
       # but not the Delete method.
       Preprocessors: [ "MOVE_CRUD_IT" ]
-      CRUD_IT_CREATE_METHOD_NAME: "CreateArticle"
-      CRUD_IT_UPDATE_METHOD_NAME: "UpdateArticle"
+#      CRUD_IT_CREATE_METHOD_NAME: "CreateArticle"
+#      CRUD_IT_UPDATE_METHOD_NAME: "UpdateArticle"
       CRUD_IT_NO_DELETE: true
     id:
       name: ArticleId
@@ -51,8 +51,9 @@ aggregates:
 
     entities:
       Comment:
-#        metadata:
-#          Preprocessors: [ "MOVE_CRUD_IT" ]
+        metadata:
+          Preprocessors: [ "MOVE_CRUD_IT" ]
+          CRUD_IT_NO_REMOVE_ENTITY: true
         id:
           name: CommentSeqId
           type: u64
@@ -68,54 +69,55 @@ aggregates:
             length: 500
           Owner:
             type: address
-
+    # -----------------------------------------------------
+    # Methods of the Article aggregate.
     methods:
-      AddComment:
-        parameters:
-          CommentSeqId:
-            type: u64
-          Commenter:
-            type: String
-            length: 100
-          Body:
-            type: String
-            length: 500
-          Owner:
-            type: address
-        references:
-          Comment:
-            type: Comment
-            parameters: ["_", "CommentSeqId"]
-            operation: "Initialize"
-        event:
-          name: CommentAdded
-#          properties:
-#            Owner:
-#              type: address
-
-      UpdateComment:
-        parameters:
-          Comment:
-            referenceType: Comment
-            isMutableReference: true
-            #eventPropertyName: Comment
-          Commenter:
-            type: String
-            length: 100
-          Body:
-            type: String
-            length: 500
-          Owner:
-            type: address
-        event:
-          name: CommentUpdated
-#        verificationLogic:
-#          Move:
-#            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
-#      RemoveComment:
-#        verificationLogic:
-#          Move:
-#            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
+#      AddComment:
+#        parameters:
+#          CommentSeqId:
+#            type: u64
+#          Commenter:
+#            type: String
+#            length: 100
+#          Body:
+#            type: String
+#            length: 500
+#          Owner:
+#            type: address
+#        references:
+#          Comment:
+#            type: Comment
+#            parameters: ["_", "CommentSeqId"]
+#            operation: "Initialize"
+#        event:
+#          name: CommentAdded
+##          properties:
+##            Owner:
+##              type: address
+#
+#      UpdateComment:
+#        parameters:
+#          Comment:
+#            referenceType: Comment
+#            isMutableReference: true
+#            #eventPropertyName: Comment
+#          Commenter:
+#            type: String
+#            length: 100
+#          Body:
+#            type: String
+#            length: 500
+#          Owner:
+#            type: address
+#        event:
+#          name: CommentUpdated
+##        verificationLogic:
+##          Move:
+##            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
+##      RemoveComment:
+##        verificationLogic:
+##          Move:
+##            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"
 
 
 #      Create:

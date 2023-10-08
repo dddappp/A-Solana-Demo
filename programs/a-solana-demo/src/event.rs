@@ -14,6 +14,23 @@ pub struct TagUpdated {
 }
 
 #[event]
+pub struct ArticleCreated {
+    pub article_id: u128,
+    pub title: String,
+    pub body: String,
+    pub owner: Pubkey,
+}
+
+#[event]
+pub struct ArticleUpdated {
+    pub article_id: u128,
+    pub version: u64,
+    pub title: String,
+    pub body: String,
+    pub owner: Pubkey,
+}
+
+#[event]
 pub struct CommentAdded {
     pub article_id: u128,
     pub version: u64,
@@ -29,23 +46,6 @@ pub struct CommentUpdated {
     pub version: u64,
     pub comment: Pubkey,
     pub commenter: String,
-    pub body: String,
-    pub owner: Pubkey,
-}
-
-#[event]
-pub struct ArticleCreated {
-    pub article_id: u128,
-    pub title: String,
-    pub body: String,
-    pub owner: Pubkey,
-}
-
-#[event]
-pub struct ArticleUpdated {
-    pub article_id: u128,
-    pub version: u64,
-    pub title: String,
     pub body: String,
     pub owner: Pubkey,
 }
