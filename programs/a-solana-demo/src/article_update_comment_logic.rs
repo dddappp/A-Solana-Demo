@@ -29,12 +29,9 @@ pub(crate) fn mutate(
     article: &mut Account<Article>,
     comment: &mut Account<Comment>,
 ) {
-    //comment.article_id = comment_added.article_id.clone();
-    //comment.comment_seq_id = comment_added.comment_seq_id;
     comment.commenter = comment_updated.commenter.clone();
     comment.body = comment_updated.body.clone();
     comment.owner = comment_updated.owner.clone();
-
     // Here you can add code to operate on the aggregate root...
     let _ = article;
 }
