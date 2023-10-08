@@ -176,8 +176,7 @@ pub(crate) fn mutate(
 }
 ```
 
-If you open other `*_logic.rs`, 
-you will find that the tool has generated the business logic for the entity `Create` and `Update` methods.
+If you open other `*_logic.rs` files, you will find that the tool has generated the business logic for those entity `Create` and `Update` methods.
 
 Now you can build and deploy your program.
 
@@ -240,9 +239,7 @@ https://rooch.network/zh-CN/docs/getting-started#41-创建-move-项目
 
 The code to accompany the article is here: https://github.com/rooch-network/rooch/tree/main/examples/simple_blog
 
-This example is actually a modification of our "Developing a blog using a low-code approach" example.
-Specifically, they removed "Comment " which is an "Aggregate Internal Entity", and only kept "Article" which is the "Aggregate Root Entity ". (It doesn't matter if you can't understand the DDD concept of "aggregate " or something like that ...)
-The reason for deleting the "Comments" entity, as I understand it, is probably because if they were to explain how to manually code the functions of adding comments/updating comments/deleting comments, then this "introductory" article would be too long and would scare away the "newbies".
+This example is actually a modification of our "Developing a blog using a low-code approach" example. Specifically, they removed "Comment " which is an "Aggregate Internal Entity", and only kept "Article" which is the "Aggregate Root Entity ". (It doesn't matter if you can't understand the DDD concept of "aggregate " or something like that ...) The reason for deleting the "Comments" entity, as I understand it, is probably because if they were to explain how to manually code the functions of adding comments/updating comments/deleting comments, then this "introductory" article would be too long and would scare away the "newbies".
 
 The code of our "Low-code developing a Rooch-based Blog Example" is also available in the Rooch official repository: https://github.com/rooch-network/rooch/blob/main/examples/blog
 
