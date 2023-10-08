@@ -7,6 +7,7 @@ use crate::context::*;
 
 mod tag_create_tag_logic;
 mod tag_update_tag_logic;
+mod article_update_article_body_logic;
 mod article_create_article_logic;
 mod article_update_article_logic;
 mod article_add_comment_logic;
@@ -64,6 +65,32 @@ pub mod a_solana_demo {
         assert_eq!(name, tag.name, "Name of state does not match");
         tag.version = old_version + 1;
         emit!(tag_updated);
+
+        Ok(())
+    }
+
+    pub fn update_article_body(
+        ctx: Context<UpdateArticleBody>,
+        body: String,
+    ) -> Result<()> {
+        let article = &ctx.accounts.article;
+        let article_id = article.article_id.clone();
+        let old_version = article.version;
+        let article_body_updated = article_update_article_body_logic::verify(
+            body,
+            article,
+            &ctx,
+        );
+        assert_eq!(article_id, article_body_updated.article_id, "ArticleId of event does not match");
+        assert_eq!(old_version, article_body_updated.version, "Version of event does not match");
+        let article = &mut ctx.accounts.article;
+        article_update_article_body_logic::mutate(
+            &article_body_updated,
+            article,
+        );
+        assert_eq!(article_id, article.article_id, "ArticleId of state does not match");
+        article.version = old_version + 1;
+        emit!(article_body_updated);
 
         Ok(())
     }

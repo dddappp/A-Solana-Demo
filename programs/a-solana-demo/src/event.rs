@@ -14,6 +14,13 @@ pub struct TagUpdated {
 }
 
 #[event]
+pub struct ArticleBodyUpdated {
+    pub article_id: u128,
+    pub version: u64,
+    pub body: String,
+}
+
+#[event]
 pub struct ArticleCreated {
     pub article_id: u128,
     pub title: String,

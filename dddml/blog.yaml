@@ -72,6 +72,12 @@ aggregates:
     # -----------------------------------------------------
     # Methods of the Article aggregate.
     methods:
+      UpdateArticleBody:
+        parameters:
+          Body:
+            type: String
+        event:
+          name: ArticleBodyUpdated
 #      AddComment:
 #        parameters:
 #          CommentSeqId:
@@ -186,8 +192,8 @@ aggregates:
     #friends: [ "Article.Create", "Article.Delete" ]
     metadata:
       Preprocessors: [ "MOVE_CRUD_IT" ]
-      CRUD_IT_CREATE_METHOD_NAME: "CreateBlog"
-      CRUD_IT_UPDATE_METHOD_NAME: "UpdateBlog"
+#      CRUD_IT_CREATE_METHOD_NAME: "CreateBlog"
+#      CRUD_IT_UPDATE_METHOD_NAME: "UpdateBlog"
       CRUD_IT_NO_DELETE: true
     id:
       name: Owner
