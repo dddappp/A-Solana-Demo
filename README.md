@@ -7,9 +7,15 @@ This PoC version of dddappp tool is simple and has very limited support for the 
 But with it, we can believe that if the Solana version of the dddappp CLI has the features that the Move version already has,
 it can be an amazing improvement in development efficiency when developing certain applications.
 
-About DDDML, here is an introductory article: ["Introducing DDDML: The Key to Low-Code Development for Decentralized Applications"](https://github.com/wubuku/Dapp-LCDP-Demo/blob/main/IntroducingDDDML.md).
+## Prerequisites
 
-This article describes some of the DDDML (DSL) specifications that are already supported in the current version of Move.
+Currently, the dddappp low-code tool is published as a Docker image for developers to experience.
+
+So before getting started, you need to:
+
+* Install [Rust & Anchor & Solana & Yarn](https://www.anchor-lang.com).
+* Install [Docker](https://docs.docker.com/engine/install/).
+
 
 ## Programming
 
@@ -105,6 +111,12 @@ aggregates:
 You may have noticed the comments in the code above. 
 If the "business logic" you need is CRUD, you don't actually need to write it. 
 You can specify the tool to automatically generate it.
+
+> **Tip**
+>
+> About DDDML, here is an introductory article: ["Introducing DDDML: The Key to Low-Code Development for Decentralized Applications"](https://github.com/wubuku/Dapp-LCDP-Demo/blob/main/IntroducingDDDML.md).
+>
+> This article describes some of the DDDML (DSL) specifications that are already supported in the current version of Move.
 
 ### Run dddappp Project Creation Tool
 
@@ -228,7 +240,7 @@ docker image rm wubuku/dddappp-solana:0.0.1
 git pull wubuku/dddappp-solana:0.0.1
 ```
 
-## Move Examples
+## Move Version Examples
 
 ### Blog Example for Rooch
 
@@ -239,7 +251,13 @@ https://rooch.network/zh-CN/docs/getting-started#41-创建-move-项目
 
 The code to accompany the article is here: https://github.com/rooch-network/rooch/tree/main/examples/simple_blog
 
-This example is actually a modification of our "Developing a blog using a low-code approach" example. Specifically, they removed "Comment " which is an "Aggregate Internal Entity", and only kept "Article" which is the "Aggregate Root Entity ". (It doesn't matter if you can't understand the DDD concept of "aggregate " or something like that ...) The reason for deleting the "Comments" entity, as I understand it, is probably because if they were to explain how to manually code the functions of adding comments/updating comments/deleting comments, then this "introductory" article would be too long and would scare away the "newbies".
+This example is actually a modification of our "Developing a blog using a low-code approach" example.
+Specifically, they removed `Comment` which is an "Aggregate Internal Entity",
+and only kept `Article` which is the "Aggregate Root Entity ".
+(It doesn't matter if you can't understand the DDD concept of "aggregate " or something like that ...)
+The reason for deleting the `Comment` entity, as I understand it, 
+is probably because if they were to explain how to manually code the functions of adding comments/updating comments/deleting comments, 
+then this "introductory" article would be too long and would scare away the newbies.
 
 The code of our "Low-code developing a Rooch-based Blog Example" is also available in the Rooch official repository: https://github.com/rooch-network/rooch/blob/main/examples/blog
 
