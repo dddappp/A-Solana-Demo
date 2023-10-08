@@ -73,6 +73,35 @@ pub struct AddComment<'info> {
 }
 
 #[derive(Accounts)]
+pub struct UpdateComment<'info> {
+    #[account(
+        mut,
+        seeds = [
+            b"Article",
+            article.article_id.to_le_bytes().as_ref(),
+        ],
+        bump
+    )]
+    pub article: Account<'info, Article>,
+
+    #[account(
+        mut,
+        seeds = [
+            b"Comment",
+            comment.article_id.to_le_bytes().as_ref(),
+            comment.comment_seq_id.to_le_bytes().as_ref(),
+        ],
+        bump
+    )]
+    pub comment: Account<'info, Comment>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
+
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
 #[instruction(article_id: u128)]
 pub struct CreateArticle<'info> {
     #[account(

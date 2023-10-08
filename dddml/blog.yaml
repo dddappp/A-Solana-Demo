@@ -86,14 +86,29 @@ aggregates:
           Comment:
             type: Comment
             parameters: ["_", "CommentSeqId"]
-            operation: "Initialize" # Initialize or Mutate
+            operation: "Initialize"
         event:
           name: CommentAdded
 #          properties:
 #            Owner:
 #              type: address
 
-#      UpdateComment:
+      UpdateComment:
+        parameters:
+          Comment:
+            referenceType: Comment
+            isMutableReference: true
+            #eventPropertyName: Comment
+          Commenter:
+            type: String
+            length: 100
+          Body:
+            type: String
+            length: 500
+          Owner:
+            type: address
+        event:
+          name: CommentUpdated
 #        verificationLogic:
 #          Move:
 #            "assert!(sui::tx_context::sender(ctx) == comment::owner(comment), 111);"

@@ -155,6 +155,24 @@ describe("a-solana-demo", () => {
     .rpc();
     console.log("Your transaction signature", tx_5);
 
+    const tx_6 = await program.methods.updateComment(
+        "foo",
+        "bar!",
+        human.publicKey,
+    ).accounts(
+        {
+           article,
+           comment,
+           authority: human.publicKey, //authority,
+           systemProgram: anchor.web3.SystemProgram.programId,
+        }
+    )
+    .signers(
+        [human]
+    )
+    .rpc();
+    console.log("Your transaction signature", tx_6);
+
     // Fetch the state struct from the network.
     const accountState_3 = await program.account.comment.fetch(comment);
     console.log("account state: ", accountState_3);

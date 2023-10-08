@@ -8,6 +8,7 @@ use crate::context::*;
 mod tag_create_tag_logic;
 mod tag_update_tag_logic;
 mod article_add_comment_logic;
+mod article_update_comment_logic;
 mod article_create_article_logic;
 mod article_update_article_logic;
 mod blog_create_blog_logic;
@@ -99,6 +100,44 @@ pub mod a_solana_demo {
         comment.article_id = article_id.clone();
         comment.comment_seq_id = comment_seq_id.clone();
         emit!(comment_added);
+
+        Ok(())
+    }
+
+    pub fn update_comment(
+        ctx: Context<UpdateComment>,
+        commenter: String,
+        body: String,
+        owner: Pubkey,
+    ) -> Result<()> {
+        let article = &ctx.accounts.article;
+        let comment = &ctx.accounts.comment;
+        let article_id = article.article_id.clone();
+        assert_eq!(article_id, comment.article_id, "ArticleId of entity does not match");
+        let comment_seq_id = comment.comment_seq_id;
+        let old_version = article.version;
+        let comment_updated = article_update_comment_logic::verify(
+            commenter,
+            body,
+            owner,
+            article,
+            comment,
+            &ctx,
+        );
+        assert_eq!(article_id, comment_updated.article_id, "ArticleId of event does not match");
+        assert_eq!(old_version, comment_updated.version, "Version of event does not match");
+        let article = &mut ctx.accounts.article;
+        let comment = &mut ctx.accounts.comment;
+        article_update_comment_logic::mutate(
+            &comment_updated,
+            article,
+            comment,
+        );
+        assert_eq!(article_id, article.article_id, "ArticleId of state does not match");
+        assert_eq!(article_id, comment.article_id, "ArticleId of state does not match");
+        assert_eq!(comment_seq_id, comment.comment_seq_id, "CommentSeqId of state does not match");
+        article.version = old_version + 1;
+        emit!(comment_updated);
 
         Ok(())
     }
