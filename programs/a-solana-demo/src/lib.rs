@@ -111,11 +111,11 @@ pub mod a_solana_demo {
         owner: Pubkey,
     ) -> Result<()> {
         let article = &ctx.accounts.article;
-        let comment = &ctx.accounts.comment;
         let article_id = article.article_id.clone();
+        let old_version = article.version;
+        let comment = &ctx.accounts.comment;
         assert_eq!(article_id, comment.article_id, "ArticleId of entity does not match");
         let comment_seq_id = comment.comment_seq_id;
-        let old_version = article.version;
         let comment_updated = article_update_comment_logic::verify(
             commenter,
             body,
@@ -134,9 +134,9 @@ pub mod a_solana_demo {
             comment,
         );
         assert_eq!(article_id, article.article_id, "ArticleId of state does not match");
+        article.version = old_version + 1;
         assert_eq!(article_id, comment.article_id, "ArticleId of state does not match");
         assert_eq!(comment_seq_id, comment.comment_seq_id, "CommentSeqId of state does not match");
-        article.version = old_version + 1;
         emit!(comment_updated);
 
         Ok(())
