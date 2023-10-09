@@ -242,6 +242,10 @@ git pull wubuku/dddappp-solana:0.0.1
 
 ## Move Version Examples
 
+###  Blog Example for Sui
+
+See it [here](https://github.com/dddappp/sui-blog-example). It only requires 30 or so lines of code (all of which is a description of the domain model) to be written by the developer, and then generates a blog example that emulates [RoR Getting Started](https://guides.rubyonrails.org/getting_started.html) in one click, without requiring the developer to write a single line of other code.
+
 ### Blog Example for Rooch
 
 Here is a Rooch version blog example: https://github.com/rooch-network/rooch/blob/main/examples/blog/README.md
