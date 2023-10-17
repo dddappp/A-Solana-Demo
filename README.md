@@ -275,7 +275,7 @@ If you are interested, you can find a more complex Sui Demo here: ["A Sui Demo"]
 
 ### Build a Crowdfunding dApp using Sui Move
 
-A crowdfunded project for educational purposes: https://github.com/dddappp/sui-crowdfunding-example
+A crowdfunding project for educational purposes: https://github.com/dddappp/sui-crowdfunding-example
 
 Developed using the Sui Move version of dddappp. The development process and testing procedures are documented in the README of the repository. The development efficiency is scary. 😄
 
