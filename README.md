@@ -281,7 +281,7 @@ Developed using the Sui Move version of dddappp. The development process and tes
 
 Below are the project requirements.
 
-#### Requirement
+#### Requirements
 
 **Overview**: We want to create a dApp for crowdfunding projects. Users can list their projects with a specific funding target and deadline to achieve it.
 
