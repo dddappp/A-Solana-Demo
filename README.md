@@ -7,6 +7,10 @@ This PoC version of dddappp tool is simple and has very limited support for the 
 But with it, we can believe that if the Solana version of the dddappp CLI has the features that the Move version already has,
 it can be an amazing improvement in development efficiency when developing certain applications.
 
+We built a side-project in Aptos' Singapore Hackathon, called Move Forms, which is a no-code tool based on dddappp Move version, and won second place.
+
+Based on our current Solana PoC version, we have already enabled community partners to build a Web3 native form tool called [Solana Forms](https://github.com/dddappp/solana-forms-demo).
+
 ## Prerequisites
 
 Currently, the dddappp low-code tool is published as a Docker image for developers to experience.
