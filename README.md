@@ -1,15 +1,11 @@
 # A Solana Demo
 
-This is a proof of concept for developing Solana programs using dddappp low-code tool.
+This is a proof of concept for developing Solana programs using [dddappp](https://www.dddappp.org) low-code tool.
 
-This PoC version of dddappp tool is simple and has very limited support for the DDDML specification.
+This Solana PoC version of dddappp tool is simple and has very limited support for the DDDML specification.
 
-But with it, we can believe that if the Solana version of the dddappp CLI has the features that the Move version already has,
+But with it, we can believe that if the Solana version of the dddappp CLI has the features that the [Move version](https://www.dddappp.org/#our-product) already has,
 it can be an amazing improvement in development efficiency when developing certain applications.
-
-We built a side-project in Aptos' Singapore Hackathon, called Move Forms, which is a no-code tool based on dddappp Move version, and won second place.
-
-Based on our current Solana PoC version, we have already enabled community partners to build a Web3 native form tool called [Solana Forms](https://github.com/dddappp/solana-forms-demo).
 
 ## Prerequisites
 
@@ -244,7 +240,13 @@ docker image rm wubuku/dddappp-solana:0.0.1
 git pull wubuku/dddappp-solana:0.0.1
 ```
 
-## Move Version Examples
+## Further Reading
+
+We built a side-project in Aptos' Singapore Hackathon, called Move Forms, which is a no-code tool based on dddappp Move version, and won second place.
+
+Based on our current Solana PoC version, we have already enabled community partners to build a Web3 native form tool called [Solana Forms](https://github.com/dddappp/solana-forms-demo).
+
+Below are more Move version examples.
 
 ###  Blog Example for Sui
 
