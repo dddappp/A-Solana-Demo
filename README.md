@@ -279,20 +279,3 @@ A crowdfunding project for educational purposes: https://github.com/dddappp/sui-
 
 Developed using the Sui Move version of dddappp. The development process and testing procedures are documented in the README of the repository. The development efficiency is scary. 😄
 
-Below are the project requirements.
-
-#### Requirements
-
-**Overview**: We want to create a dApp for crowdfunding projects. Users can list their projects with a specific funding target and deadline to achieve it.
-
-For example, Dan wants to raise 5,000 Mango tokens for his Mango Orchard by November 10th. The project will be listed and other users can fund it by paying Mango tokens. If the target of 5,000 Mango tokens is not reached by November 10th, the funding amount will be returned to the supporters. If the target is met, the amount will be sent to Dan.
-
-We only need the smart contract, without a frontend.
-
-**Requirements**:
-
-*  The smart contract should enable users to create project listings, receive funds from supporters, and distribute funds to the project creator if the funding goals are met.
-*  Funds will be locked in the smart contract until a specified funding goal, set by the project creator, is reached. If not met, funds will be returned to the supporters.
-*  Each project must have a 15-day time limit from the date it starts, which will be managed by the smart contract.
-*  The smart contract code must include comments to explain how it works.
-*  The dApp should have its own native token that users can use to fund a project.
